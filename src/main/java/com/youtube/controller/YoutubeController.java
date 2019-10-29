@@ -17,7 +17,7 @@ import com.youtube.service.VideoServiceImpl;
 
 @Controller
 public class YoutubeController {
-
+ 
 	  @Autowired
 	  VideoServiceImpl videoService;
 
@@ -34,11 +34,11 @@ public class YoutubeController {
 	      @ModelAttribute("login") Channels login) {
 	    ModelAndView mav = null;
 
-	    Videos user = videoService.validateUser(login);
+	    Videos videos = videoService.validateUser(login);
 
-	    if (null != user) {
+	    if (null != videos) {
 	      mav = new ModelAndView("welcome");
-	      mav.addObject("firstname", user.getFirstname());
+	      mav.addObject("firstname", videos.getTitle());
 	    } else {
 	      mav = new ModelAndView("login");
 	      mav.addObject("message", "Username or Password is wrong!!");

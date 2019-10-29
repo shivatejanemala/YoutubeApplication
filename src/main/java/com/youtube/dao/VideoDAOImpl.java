@@ -24,9 +24,9 @@ public class VideoDAOImpl implements VideoDAO {
 	  System.out.println("Creating register fn");
     String sql = "insert into users values(?,?,?,?,?,?,?)";
 
-    JdbcTemplate jdbcTemplate = createJdbcTemplate();
+    /*JdbcTemplate jdbcTemplate = createJdbcTemplate();
     jdbcTemplate.update(sql, new Object[] { user.getUsername(), user.getPassword(), user.getFirstname(),
-        user.getLastname(), user.getEmail(), user.getAddress(), user.getPhone() });
+        user.getLastname(), user.getEmail(), user.getAddress(), user.getPhone() });*/
   }
 
   private JdbcTemplate createJdbcTemplate() {
@@ -55,7 +55,7 @@ public class VideoDAOImpl implements VideoDAO {
 	return video;
 }
 
-class VideoMapper implements RowMapper<Videos> {
+/*class VideoMapper implements RowMapper<Videos> {
 
   public Videos mapRow(ResultSet rs, int arg1) throws SQLException {
     Videos video = new Videos();
@@ -70,5 +70,5 @@ class VideoMapper implements RowMapper<Videos> {
 
     return video;
   }
-}
+}*/
 }

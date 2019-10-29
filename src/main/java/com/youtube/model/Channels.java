@@ -4,24 +4,25 @@ public class Channels {
 
 
 
-	  private String username;
-	  private String password;
+	  private int channelid;
+	  private String channelTitle;
+	  
+	public int getChannelid() {
+		return channelid;
+	}
+	public void setChannelid(int channelid) {
+		this.channelid = channelid;
+	}
+	public String getChannelTitle() {
+		return channelTitle;
+	}
+	public void setChannelTitle(String channelTitle) {
+		this.channelTitle = channelTitle;
+	}
+	  
+	  
 
-	  public String getUsername() {
-	    return username;
-	  }
-
-	  public void setUsername(String username) {
-	    this.username = username;
-	  }
-
-	  public String getPassword() {
-	    return password;
-	  }
-
-	  public void setPassword(String password) {
-	    this.password = password;
-	  }
+	 
 
 
 }
