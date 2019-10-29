@@ -13,21 +13,23 @@ import org.springframework.web.servlet.ModelAndView;
 import com.youtube.model.Channels;
 import com.youtube.model.Videos;
 import com.youtube.service.VideoService;
+import com.youtube.service.VideoServiceImpl;
 
+@Controller
 public class YoutubeController {
 
 	  @Autowired
-	  VideoService videoService;
+	  VideoServiceImpl videoService;
 
 	  @RequestMapping(value = "/login", method = RequestMethod.GET)
 	  public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
 	    ModelAndView mav = new ModelAndView("login");
 	    /*mav.addObject("login", new Channels());*/
-	    mav.addObject("login","message");
+	    mav.addObject("message","Hello Mr.Nemala!!!!");
 	    return mav;
 	  }
 
-	  @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
+	  @RequestMapping(value = "/register", method = RequestMethod.GET)
 	  public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
 	      @ModelAttribute("login") Channels login) {
 	    ModelAndView mav = null;
