@@ -26,6 +26,11 @@ public class YoutubeController {
 	    ModelAndView mav = new ModelAndView("login");
 	    /*mav.addObject("login", new Channels());*/
 	    mav.addObject("message","Hello Mr.Nemala!!!!");
+	    String json = "[{\"videos\":\"Kolavari\",\"views\":1000},{\"videos\":\"blue eyes\",\"views\":150}]";
+	    Videos video = new Videos();
+	    video.setCategoryid(1);
+	    video.setTitle("Youtube Title");
+	    mav.addObject("chartData",json);
 	    return mav;
 	  }
 

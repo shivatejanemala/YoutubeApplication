@@ -13,8 +13,10 @@
 		<table align="center">
 		<tr>
 			<td style="font-style: italic; color: red;">${message}</td>
+		
 		</tr>
 	</table>
+		<div id = "object" style = "display:none;" >${chartData}</div>
 	<div id = "piechart"></div>
 	<div id = "barchart"></div>
 </body>
@@ -34,14 +36,22 @@ function drawChart() {
   ['Sleep', 8]
 ]); */
 	
+	var objectData = document.getElementById('object');
+	console.log('object- '+objectData);
+	console.log('Title- '+ objectData.Title);
 	var data = new google.visualization.DataTable();
 	data.addColumn('string','Videos');
 	data.addColumn('number','Views');
 	
-	data.addRows([['Kolavari',1000],['blue eyes',111]]);
+	var jsonData= JSON.parse(document.getElementById('object').innerHTML);
+	for (var i = 0; i < jsonData.length; i++) {
+        data.addRow([jsonData[i].videos, jsonData[i].views]);
+    }
+	
+	//data.addRows([['Kolavari',1000],['blue eyes',111]]);
   // Optional; add a title and set the width and height of the chart
   var pieTitle = {'title':'Videos-Views', 'width':550, 'height':400};
-  var barTitle = {'title':'Videos-Views', 'width':550, 'height':400};
+  var barTitle = {'title':'Videos-Views', 'width':550, 'height':400, colors:['blue','black']};
   // Display the chart inside the <div> element with id="piechart" ---for PieChart 
   var piechart = new google.visualization.PieChart(document.getElementById('piechart'));
   	//Display the chart inside the <div> element with id="piechart" -- for BarChart
