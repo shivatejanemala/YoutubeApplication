@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.youtube.model.Channels;
@@ -22,10 +23,11 @@ public class YoutubeController {
 	  VideoServiceImpl videoService;
 
 	  @RequestMapping(value = "/login", method = RequestMethod.GET)
-	  public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
+	  public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response, @RequestParam(required=false) String countryList) {
 	    ModelAndView mav = new ModelAndView("login");
 	    /*mav.addObject("login", new Channels());*/
 	    mav.addObject("message","Hello Mr.Nemala!!!!");
+	    System.out.println("countryList- "+countryList);
 	    String json = "[{\"videos\":\"Kolavari\",\"views\":1000},{\"videos\":\"blue eyes\",\"views\":150}]";
 	    Videos video = new Videos();
 	    video.setCategoryid(1);
