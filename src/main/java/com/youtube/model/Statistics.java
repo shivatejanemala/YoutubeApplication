@@ -13,7 +13,7 @@ public class Statistics {
 	  private boolean commentsDisabled;
 	  private boolean ratingsDisabled;
 	  private boolean videoErrRemoved;
-	  
+	  //commit check
 	public int getStatid() {
 		return statid;
 	}
