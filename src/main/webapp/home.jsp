@@ -9,51 +9,29 @@
 <body>
 <h1 style="margin-left:550px">Welcome to UTrends</h1>
 <div style="margin-left:550px;margin-bottom:40px"> Please select the countries for Analysis</div>
-<!-- <select id = "countryID" multiple>
-<option value = "1">India</option>
-<option value = "2">Canada</option>
-<option value = "3">United States</option>
-<option value = "4">France</option>
-</select> -->
-<!-- <button type = "button" onclick = "selectCountries();">Select</button>
- -->
+
  <div id = "countryBox" style="margin-bottom:50px">
  <table style="margin-left:600px">
  	<tr>
- 		<td style="width:95px; height: 30px; border: 1px solid blue;" onclick = "selectCountries(1);"> France</td>
- 		<td style="width:95px; height: 30px; border: 1px solid blue;" onclick = "selectCountries(2);">Canada</td>
+ 		<td style="width:95px; height: 30px; border: 1px solid blue;" onclick = "selectCountries(1,this);"> France</td>
+ 		<td style="width:95px; height: 30px; border: 1px solid blue;" onclick = "selectCountries(2,this);">Canada</td>
  	</tr>
  	<tr>
- 		<td style="width:95px; height: 30px; border: 1px solid blue;" onclick = "selectCountries(3);">United States</td>
- 		<td style="width:95px; height: 30px; border: 1px solid blue;" onclick = "selectCountries(4);">Great Britain</td>
+ 		<td style="width:95px; height: 30px; border: 1px solid blue;" onclick = "selectCountries(3,this);">United States</td>
+ 		<td style="width:95px; height: 30px; border: 1px solid blue;" onclick = "selectCountries(4,this);">Great Britain</td>
  	</tr>
  	<tr>
- 		<td style="width:95px; height: 30px; border: 1px solid blue;" onclick = "selectCountries(5);">Germany</td>
+ 		<td style="width:95px; height: 30px; border: 1px solid blue;" onclick = "selectCountries(5,this);">Germany</td>
  	</tr>
  </table>
- <!-- <div id = "FranceBox" style = "width:55px; border: 1px solid blue;">
- France
- </div>
-  <div id = "CanadaBox" style = "width:55px; border: 1px solid blue;">
- Canada
- </div>
-  <div id = "USBox" style = "width:55px; border: 1px solid blue;">
- United States
- </div>
-  <div id = "GBBox" style = "width:55px; border: 1px solid blue;">
- Great Britain
- </div>
-  <div id = "germanyBox" style = "width:55px; border: 1px solid blue;">
- Germany
- </div> -->
+ 
  </div>
  <div id = "countryList" style = "display:none;" ></div>
-	
-			<!-- <div id = "CountryReg"><a href="login">Enter</a></div> -->
-		<div id = "CountryReg" onclick= "setCountryList()">Enter</div>
+<div id = "CountryReg" style = "margin-left:650px;width:95px; height: 30px; border: 1px solid blue;" onclick= "setCountryList()">Enter</div>
+<div><a href="register">Register</a></div>
 </body>
 <script>
-function selectCountries(country){
+function selectCountries(country,el){
 	console.log('Countries added');
 	var countryList = document.getElementById('countryList').innerHTML.split(',');
 	if(countryList.includes(country.toString())){
@@ -62,8 +40,10 @@ function selectCountries(country){
 				   countryList.splice(i, 1); 
 			   }
 			}
+		el.style.backgroundColor = "white";
 	}else{
 		countryList.push(country);
+		el.style.backgroundColor = "blue";
 	}
 	document.getElementById('countryList').innerHTML = countryList;
 	/* document.getElementById('CountryReg').children[0].href += '?countryList='+countryList.toString(); */
@@ -77,19 +57,5 @@ function setCountryList(country){
 		window.location.href +="/login?countryList="+document.getElementById('countryList').innerHTML;
 	}
 }
-/* window.onmousedown = function (e) {
-    var el = e.target;
-    if (el.tagName.toLowerCase() == 'option' && el.parentNode.hasAttribute('multiple')) {
-        e.preventDefault();
-
-        // toggle selection
-        if (el.hasAttribute('selected')) el.removeAttribute('selected');
-        else el.setAttribute('selected', '');
-
-        // hack to correct buggy behavior
-        var select = el.parentNode.cloneNode(true);
-        el.parentNode.parentNode.replaceChild(select, el.parentNode);
-    }
-} */
 </script>
 </html>

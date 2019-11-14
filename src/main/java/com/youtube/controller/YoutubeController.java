@@ -26,7 +26,7 @@ public class YoutubeController {
 	  public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response, @RequestParam(required=false) String countryList) {
 	    ModelAndView mav = new ModelAndView("login");
 	    /*mav.addObject("login", new Channels());*/
-	    mav.addObject("message","Hello Mr.Nemala!!!!");
+	    mav.addObject("message","Youtube Trending Analysis");
 	    System.out.println("countryList- "+countryList);
 	    String json = "[{\"videos\":\"Kolavari\",\"views\":1000},{\"videos\":\"blue eyes\",\"views\":150}]";
 	    Videos video = new Videos();
@@ -53,6 +53,17 @@ public class YoutubeController {
 
 	    return mav;
 	  }
+	  
+	  @RequestMapping(value = "/home", method = RequestMethod.GET)
+	  public ModelAndView goHome(HttpServletRequest request, HttpServletResponse response,
+	      @ModelAttribute("login") Channels login) {
+	    ModelAndView mav = null;
 
+	    Videos videos = videoService.validateUser(login);
+
+	      mav = new ModelAndView("home");
+	      mav.addObject("firstname", videos.getTitle());
+	    return mav;
+	  }
 
 }

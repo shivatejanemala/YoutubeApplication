@@ -12,52 +12,43 @@
 
 		<table align="center">
 		<tr>
-			<td style="font-style: italic; color: red;">${message}</td>
-		
+			<td style="color: red;padding-right:600px;padding-left:400px">${message}</td>
+			<td><div onclick="goHome()">Home</div></td>
 		</tr>
 	</table>
 		<div id = "object" style = "display:none;" >${chartData}</div>
-	<div id = "piechart"></div>
-	<div id = "barchart"></div>
+<table style="padding-top:85px;">
+	<tr>
+		<td style ="padding-right:400px;padding-left:300px"><div onclick="getGraphs()">Views V/S Countries</div></td>
+		<td><div onclick="getGraphs()">Views V/S Countries</div></td>
+	</tr>
+	<tr>
+		<td style ="padding-right:400px;padding-left:300px">Views V/S Countries</td>
+		<td><div onclick="getGraphs()">Views V/S Countries</div></td>
+	</tr>
+	<tr>
+		<td style ="padding-right:400px;padding-left:300px">Views V/S Countries</td>
+		<td><div onclick="getGraphs()">Views V/S Countries</div></td>
+	</tr>
+	<tr>
+		<td style ="padding-right:400px;padding-left:300px">Views V/S Countries</td>
+		<td><div onclick="getGraphs()">Views V/S Countries</div></td>
+	</tr>
+</table>
 </body>
 <script type = "text/javascript">
 google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+function goHome(){
+	var path = window.location.href;
+	window.location.href= path.substr(0,path.indexOf('/login'));
 
-// Draw the chart and set the chart values
-function drawChart() {
-/*   var data = google.visualization.arrayToDataTable([
-  ['Task', 'Hours per Day'],
-  ['Work', 8],
-  ['Friends', 2],
-  ['Eat', 2],
-  ['TV', 2],
-  ['Gym', 2],
-  ['Sleep', 8]
-]); */
-	
-	var objectData = document.getElementById('object');
-	console.log('object- '+objectData);
-	console.log('Title- '+ objectData.Title);
-	var data = new google.visualization.DataTable();
-	data.addColumn('string','Videos');
-	data.addColumn('number','Views');
-	
-	var jsonData= JSON.parse(document.getElementById('object').innerHTML);
-	for (var i = 0; i < jsonData.length; i++) {
-        data.addRow([jsonData[i].videos, jsonData[i].views]);
-    }
-	
-	//data.addRows([['Kolavari',1000],['blue eyes',111]]);
-  // Optional; add a title and set the width and height of the chart
-  var pieTitle = {'title':'Videos-Views', 'width':550, 'height':400};
-  var barTitle = {'title':'Videos-Views', 'width':550, 'height':400, colors:['blue','black']};
-  // Display the chart inside the <div> element with id="piechart" ---for PieChart 
-  var piechart = new google.visualization.PieChart(document.getElementById('piechart'));
-  	//Display the chart inside the <div> element with id="piechart" -- for BarChart
-  	var barchart = new google.visualization.BarChart(document.getElementById('barchart'));
-  piechart.draw(data, pieTitle);
-  barchart.draw(data, barTitle);
+}
+function getGraphs(){
+	alert('Generating Graphs');
+	var path = window.location.href;
+	path= path.substr(0,path.indexOf('/login'));
+	path +='/register';
+	window.open(path,'xyz','location=yes,height=570,width=520,scrollbars=yes,status=yes');
 }
 </script>
 </html>
