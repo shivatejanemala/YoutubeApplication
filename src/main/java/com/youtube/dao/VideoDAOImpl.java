@@ -1,6 +1,7 @@
 package com.youtube.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,6 @@ public class VideoDAOImpl implements VideoDAO {
 
   @Autowired
   DataSource datasource;
-	
  
 
   public void register(Videos user) {
@@ -61,18 +61,19 @@ public class VideoDAOImpl implements VideoDAO {
 	return video;
 }
   
-  public HashMap<String,Integer> Query4(List<String> countries){
+  public HashMap<String,Integer> Query4(List<String> countries) throws SQLException{
 		 HashMap<String,Integer> result = new HashMap<String,Integer>();
-		    String sql = "select * from Category  where rownum <=10;";
+		 DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+		    String sql = "select * from Category  where rownum <=10";
 		    System.out.println("outside Query4"+sql);
 		    try {
 		    	System.out.println("inside Query4");
-		    Connection conn = datasource.getConnection();
+    	 Connection conn =  DriverManager.getConnection("jdbc:oracle:thin:@oracle.cise.ufl.edu:1521:orcl", "spujitha", "ciseORC4");
 		    System.out.println("DB Connection successfully established");
 		    PreparedStatement ps = conn.prepareStatement(sql);
 		 	ResultSet rs = ps.executeQuery();
 		 	System.out.println("after ps Query4");
-		 	if(rs.next()) {
+		 	while(rs.next()) {
 		 		System.out.println("Query executed Successfully");
 		 		result.put(rs.getString("CATEGORY_NAME"),rs.getInt("CATEGORY_ID"));
 		 	}

@@ -1,5 +1,6 @@
 package com.youtube.controller;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +64,7 @@ public class YoutubeController {
 
 	  @RequestMapping(value = "/query4", method = RequestMethod.GET)
 	  public ModelAndView query4(HttpServletRequest request, HttpServletResponse response,
-			  @RequestParam(required=false) String countryList) {
+			  @RequestParam(required=false) String countryList) throws SQLException {
 	    ModelAndView mav = null;
 	    List<String> items = Arrays.asList(countryList.split("\\s*,\\s*"));
 	    HashMap<String,Integer> categoryRes = videoService.dataCategories(items);

@@ -1,5 +1,6 @@
 package com.youtube.service;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class VideoServiceImpl implements VideoDAO{
 	    return videoDao.validateUser(channel);
 	  }
 	  
-	  public HashMap<String,Integer> dataCategories(List<String> countries) {
+	  public HashMap<String,Integer> dataCategories(List<String> countries) throws SQLException {
 		  VideoDAOImpl tdCat = new VideoDAOImpl();
 		    return tdCat.Query4(countries);
 		  }
