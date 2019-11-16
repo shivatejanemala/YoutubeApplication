@@ -74,7 +74,7 @@ function setCountryList(country){
 		alert("PLEASE SELECT ATLEAST ONE COUNTRY");
 	}
 	else{
-		window.location.href +="/login?countryList="+document.getElementById('countryList').innerHTML;
+		window.location.href +="/query4?countryList="+document.getElementById('countryList').innerHTML;
 	}
 }
 /* window.onmousedown = function (e) {
