@@ -1,9 +1,12 @@
 package com.youtube.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -17,13 +20,12 @@ public class VideoDAOImpl implements VideoDAO {
 
   @Autowired
   DataSource datasource;
-
  
 
   public void register(Videos user) {
 	  System.out.println("Creating register fn");
     String sql = "insert into users values(?,?,?,?,?,?,?)";
-
+    
     /*JdbcTemplate jdbcTemplate = createJdbcTemplate();
     jdbcTemplate.update(sql, new Object[] { user.getUsername(), user.getPassword(), user.getFirstname(),
         user.getLastname(), user.getEmail(), user.getAddress(), user.getPhone() });*/
@@ -33,6 +35,7 @@ public class VideoDAOImpl implements VideoDAO {
 	  System.out.println("Creating datasource");
 	  return new JdbcTemplate(datasource);
   }
+  
   
   public Videos validateUser(Channels login) {
 	  System.out.println("Creating Validate User fn");
@@ -48,27 +51,39 @@ public class VideoDAOImpl implements VideoDAO {
 		System.out.println("Query executed Successfully");
 		 video = new Videos(); 
 	}
+	rs.close();
+	conn.close();
     }
     catch(Exception e) {
     	System.out.println("SQL ERROR FOUND __--"+e);
     }
+    
 	return video;
 }
+  
+  public HashMap<String,Integer> Query4(List<String> countries) throws SQLException{
+		 HashMap<String,Integer> result = new HashMap<String,Integer>();
+		 DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+		    String sql = "select * from Category  where rownum <=10";
+		    System.out.println("outside Query4"+sql);
+		    try {
+		    	System.out.println("inside Query4");
+    	 Connection conn =  DriverManager.getConnection("jdbc:oracle:thin:@oracle.cise.ufl.edu:1521:orcl", "spujitha", "ciseORC4");
+		    System.out.println("DB Connection successfully established");
+		    PreparedStatement ps = conn.prepareStatement(sql);
+		 	ResultSet rs = ps.executeQuery();
+		 	System.out.println("after ps Query4");
+		 	while(rs.next()) {
+		 		System.out.println("Query executed Successfully");
+		 		result.put(rs.getString("CATEGORY_NAME"),rs.getInt("CATEGORY_ID"));
+		 	}
+		 	rs.close();
+			conn.close();
+		    }catch(Exception e) {
+		    	System.out.println("SQL ERROR FOUND __--"+e);
+		    }
+		     
+		return result;
+	 }
 
-/*class VideoMapper implements RowMapper<Videos> {
-
-  public Videos mapRow(ResultSet rs, int arg1) throws SQLException {
-    Videos video = new Videos();
-
-    video.setUsername(rs.getString("username"));
-    video.setPassword(rs.getString("password"));
-    video.setFirstname(rs.getString("firstname"));
-    video.setLastname(rs.getString("lastname"));
-    video.setEmail(rs.getString("email"));
-    video.setAddress(rs.getString("address"));
-    video.setPhone(rs.getInt("phone"));
-
-    return video;
-  }
-}*/
 }

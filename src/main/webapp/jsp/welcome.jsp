@@ -16,8 +16,15 @@
 		<tr>
 		</tr>
 		<tr>
-			<td><a href="home.jsp">Home</a></td>
+			<td><div onclick="goHome()">Home</div></td>
 		</tr>
 	</table>
 </body>
+<script>
+function goHome(){
+	var path = window.location.href;
+	window.location.href= path.substr(0,path.indexOf('/login'));
+
+}
+</script>
 </html>

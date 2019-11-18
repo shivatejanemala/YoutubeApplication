@@ -4,7 +4,12 @@ public class Categories {
 
 
 
-	  private int categoryid;
+	  public Categories(int categoryid, String name) {
+		super();
+		this.categoryid = categoryid;
+		this.name = name;
+	}
+	private int categoryid;
 	  private String name;
 	  
 	public int getCategoryid() {

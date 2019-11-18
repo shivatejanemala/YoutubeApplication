@@ -47,7 +47,7 @@ function getGraphs(){
 	//alert('Generating Graphs');
 	var path = window.location.href;
 	path= path.substr(0,path.indexOf('/login'));
-	path +='/register';
+	path +='/query4';
 	//window.open(path,'xyz','location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	window.location.href = path;
 }
