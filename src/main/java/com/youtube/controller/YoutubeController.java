@@ -1,5 +1,10 @@
 package com.youtube.controller;
 
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,17 +15,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.youtube.model.Channels;
+import com.youtube.model.Countries;
 import com.youtube.model.Videos;
-import com.youtube.service.VideoService;
 import com.youtube.service.VideoServiceImpl;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+
 
 @Controller
 public class YoutubeController {
  
 	  @Autowired
 	  VideoServiceImpl videoService;
+	  
 
 	  @RequestMapping(value = "/login", method = RequestMethod.GET)
 	  public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response, @RequestParam(required=false) String countryList) {
@@ -50,7 +59,6 @@ public class YoutubeController {
 	      mav = new ModelAndView("login");
 	      mav.addObject("message", "Username or Password is wrong!!");
 	    }
-
 	    return mav;
 	  }
 	  
@@ -66,4 +74,23 @@ public class YoutubeController {
 	    return mav;
 	  }
 
+	  @RequestMapping(value = "/query4", method = RequestMethod.GET)
+	  public ModelAndView query4(HttpServletRequest request, HttpServletResponse response,
+			  @RequestParam(required=false) String countryList) throws SQLException {
+	    ModelAndView mav = null;
+	    List<String> items = Arrays.asList(countryList.split("\\s*,\\s*"));
+	    HashMap<String,Integer> categoryRes = videoService.dataCategories(items);
+        GsonBuilder gsonMapBuilder = new GsonBuilder();
+        Gson gsonObject  = gsonMapBuilder.create();
+        String JSONObject = gsonObject.toJson(categoryRes);
+        System.out.println("query4 JSON: "+JSONObject);
+	    if (null != categoryRes) {
+	    	mav = new ModelAndView("login");
+	      mav.addObject("categoryData", JSONObject);
+	    } else {
+	      mav = new ModelAndView("login");
+	      mav.addObject("message", "Data doesn't exist!!");
+	    }
+	    return mav;
+	  } 
 }
