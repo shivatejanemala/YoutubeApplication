@@ -19,20 +19,20 @@
 		<div id = "object" style = "display:none;" >${chartData}</div>
 <table style="padding-top:85px;">
 	<tr>
-		<td style ="padding-right:400px;padding-left:300px"><div onclick="getGraphs()">Views V/S Countries</div></td>
-		<td><div onclick="getGraphs()">Views V/S Countries</div></td>
+		<td style ="padding-right:400px;padding-left:300px"><div onclick="getGraphs(1)">Views V/S Countries</div></td>
+		<td><div onclick="getGraphs(2)">Views V/S Countries</div></td>
 	</tr>
 	<tr>
-		<td style ="padding-right:400px;padding-left:300px">Views V/S Countries</td>
-		<td><div onclick="getGraphs()">Views V/S Countries</div></td>
+		<td style ="padding-right:400px;padding-left:300px"><div onclick="getGraphs(3)">Views V/S Countries</div></td>
+		<td><div onclick="getGraphs(4)">Views V/S Countries</div></td>
 	</tr>
 	<tr>
-		<td style ="padding-right:400px;padding-left:300px">Views V/S Countries</td>
-		<td><div onclick="getGraphs()">Views V/S Countries</div></td>
+		<td style ="padding-right:400px;padding-left:300px"><div onclick="getGraphs(5)">Views V/S Countries</div></td>
+		<td><div onclick="getGraphs(6)">Views V/S Countries</div></td>
 	</tr>
 	<tr>
-		<td style ="padding-right:400px;padding-left:300px">Views V/S Countries</td>
-		<td><div onclick="getGraphs()">Views V/S Countries</div></td>
+		<td style ="padding-right:400px;padding-left:300px"><div onclick="getGraphs(7)">Views V/S Countries</div><td>
+		<td><div onclick="getGraphs(8)">Views V/S Countries</div></td>
 	</tr>
 </table>
 </body>
@@ -44,11 +44,12 @@ function goHome(){
 
 }
 function getGraphs(){
-	alert('Generating Graphs');
+	//alert('Generating Graphs');
 	var path = window.location.href;
 	path= path.substr(0,path.indexOf('/login'));
 	path +='/register';
-	window.open(path,'xyz','location=yes,height=570,width=520,scrollbars=yes,status=yes');
+	//window.open(path,'xyz','location=yes,height=570,width=520,scrollbars=yes,status=yes');
+	window.location.href = path;
 }
 </script>
 </html>
