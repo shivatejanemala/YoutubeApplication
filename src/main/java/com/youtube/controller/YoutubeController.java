@@ -75,9 +75,10 @@ public class YoutubeController {
 	  }
 
 	  @RequestMapping(value = "/query4", method = RequestMethod.GET)
-	  public ModelAndView query4(HttpServletRequest request, HttpServletResponse response,
-			  @RequestParam(required=false) String countryList) throws SQLException {
+	  public ModelAndView query4(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 	    ModelAndView mav = null;
+	    System.out.println("Into Query 4 logic");
+	    String countryList="a";
 	    List<String> items = Arrays.asList(countryList.split("\\s*,\\s*"));
 	    HashMap<String,Integer> categoryRes = videoService.dataCategories(items);
         GsonBuilder gsonMapBuilder = new GsonBuilder();
@@ -85,7 +86,7 @@ public class YoutubeController {
         String JSONObject = gsonObject.toJson(categoryRes);
         System.out.println("query4 JSON: "+JSONObject);
 	    if (null != categoryRes) {
-	    	mav = new ModelAndView("login");
+	    	mav = new ModelAndView("welcome");
 	      mav.addObject("categoryData", JSONObject);
 	    } else {
 	      mav = new ModelAndView("login");
