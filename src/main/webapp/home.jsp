@@ -55,7 +55,15 @@ function selectCountries(country,el){
 		countryList.push(country);
 		el.style.backgroundColor = "blue";
 	}
-	document.getElementById('countryList').innerHTML = countryList;
+	var countryName = "";
+	for(var i = 0;i< countryList.length;i++){
+		var a = countryList[i];
+		if (a != ""){
+			countryName +=(a+",");
+		}
+	}
+
+	document.getElementById('countryList').innerHTML = countryName;
 	/* document.getElementById('CountryReg').children[0].href += '?countryList='+countryList.toString(); */
 
 }

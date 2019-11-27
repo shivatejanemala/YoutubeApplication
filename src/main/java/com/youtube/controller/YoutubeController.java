@@ -97,8 +97,9 @@ public class YoutubeController {
         jObject.put("categoryList", jArray);
         System.out.println("query4 JSON: "+jObject);
 	    if (!categoryRes.isEmpty()) {
-	    	mav = new ModelAndView("login");
+	    	mav = new ModelAndView("welcome");
 	      mav.addObject("categoryData", jObject);
+	      mav.addObject("queryType", "query4");
 	    } else {
 	      mav = new ModelAndView("login");
 	      mav.addObject("message", "Data doesn't exist!!");

@@ -19,20 +19,20 @@
 		<div id = "object" style = "display:none;" >${chartData}</div>
 <table style="padding-top:85px;">
 	<tr>
-		<td style ="padding-right:400px;padding-left:300px"><div onclick="getGraphs(1)">Views V/S Countries</div></td>
-		<td><div onclick="getGraphs(2)">Views V/S Countries</div></td>
+		<td style ="padding-right:400px;padding-left:300px;border: 1px solid blue"><div onclick="getGraphs(1)">Views V/S Countries</div></td>
+		<td style ="border: 1px solid blue;"><div onclick="getGraphs(2)">Views V/S Countries</div></td>
 	</tr>
 	<tr>
-		<td style ="padding-right:400px;padding-left:300px"><div onclick="getGraphs(3)">Views V/S Countries</div></td>
-		<td><div onclick="getGraphs(4)">Views V/S Countries</div></td>
+		<td style ="padding-right:400px;padding-left:300px;border: 1px solid blue"><div onclick="getGraphs(3)">Views V/S Countries</div></td>
+		<td style ="border: 1px solid blue;"><div onclick="getGraphs(4)">Relation between No. of Videos and Categories</div></td>
 	</tr>
 	<tr>
-		<td style ="padding-right:400px;padding-left:300px"><div onclick="getGraphs(5)">Views V/S Countries</div></td>
-		<td><div onclick="getGraphs(6)">Views V/S Countries</div></td>
+		<td style ="padding-right:400px;padding-left:300px;border: 1px solid blue"><div onclick="getGraphs(5)">Views V/S Countries</div></td>
+		<td style ="border: 1px solid blue;"><div onclick="getGraphs(6)">Views V/S Countries</div></td>
 	</tr>
 	<tr>
-		<td style ="padding-right:400px;padding-left:300px"><div onclick="getGraphs(7)">Views V/S Countries</div><td>
-		<td><div onclick="getGraphs(8)">Views V/S Countries</div></td>
+		<td style ="padding-right:400px;padding-left:300px;border: 1px solid blue"><div onclick="getGraphs(7)">Views V/S Countries</div></td>
+		<td style ="border: 1px solid blue;"><div onclick="getGraphs(8)">Views V/S Countries</div></td>
 	</tr>
 </table>
 </body>
@@ -43,11 +43,11 @@ function goHome(){
 	window.location.href= path.substr(0,path.indexOf('/login'));
 
 }
-function getGraphs(){
+function getGraphs(queryNo){
 	//alert('Generating Graphs');
 	var path = window.location.href;
 	path= path.substr(0,path.indexOf('/login'));
-	path +='/query4';
+	path +='/query'+queryNo;
 	//window.open(path,'xyz','location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	window.location.href = path;
 }
