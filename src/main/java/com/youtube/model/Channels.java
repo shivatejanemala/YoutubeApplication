@@ -4,7 +4,7 @@ public class Channels {
 
 
 
-	  private int channelid; //commit
+	  private int channelid; //commit check
 	  private String channelTitle;
 	  
 	public int getChannelid() {
