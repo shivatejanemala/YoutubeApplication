@@ -25,9 +25,9 @@ public class VideoServiceImpl implements VideoDAO{
 	    return videoDao.validateUser(channel);
 	  }
 	  
-	  public HashMap<String,String> dataCategories(List<String> countries) throws SQLException {
+	  public HashMap<String,String> dataCategories(String countries) throws SQLException {
 		  VideoDAOImpl tdCat = new VideoDAOImpl();
-		    return tdCat.Query4(countries);
+		    return tdCat.Query4();
 		  }
 	  public HashMap<String,String> dataChannels(String countries) throws SQLException {
 		  VideoDAOImpl tdCat = new VideoDAOImpl();

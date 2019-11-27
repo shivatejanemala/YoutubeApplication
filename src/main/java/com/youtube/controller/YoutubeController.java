@@ -83,22 +83,22 @@ public class YoutubeController {
 	    System.out.println("Into Query 4 logic");
 	  //  System.out.println("countryList:"+cntryList);
 	  //  List<String> items = Arrays.asList(cntryList.split("\\s*,\\s*"));
-	    String cn= ",1,3";
+	    String cn= "1,3";
 	    List<String> items = Arrays.asList(cn.split("\\s*,\\s*"));
 	    JSONObject jObject = new JSONObject();
-	    HashMap<String,String> categoryRes = videoService.dataCategories(items);
+	    HashMap<String,String> categoryRes = videoService.dataCategories(cn);
         Set<String> keySet = categoryRes.keySet();
         JSONArray jArray = new JSONArray();
         for(String key: keySet){
-        	JSONObject catJSON = new JSONObject();
-        	catJSON.put(key,categoryRes.get(key));
-        	jArray.put(catJSON);
+        	JSONObject channelJSON = new JSONObject();
+        	channelJSON.put("Categories",key);
+        	channelJSON.put("Videos",categoryRes.get(key));
+        	jArray.put(channelJSON);
         }
         jObject.put("categoryList", jArray);
         System.out.println("query4 JSON: "+jObject);
 	    if (!categoryRes.isEmpty()) {
 	    	mav = new ModelAndView("welcome");
-	      mav.addObject("categoryData", jObject);
 	      mav.addObject("queryType", "query4");
 	    } else {
 	      mav = new ModelAndView("login");
@@ -113,7 +113,7 @@ public class YoutubeController {
 	    System.out.println("Into Query 3 logic");
 	  //  System.out.println("countryList:"+cntryList);
 	  //  List<String> items = Arrays.asList(cntryList.split("\\s*,\\s*"));
-	    String cn= "1,3";
+	    String cn= ",1,3";
 	   // List<String> items = Arrays.asList(cn.split("\\s*,\\s*"));
 	    JSONObject jObject = new JSONObject();
 	    HashMap<String,String> channelRes = videoService.dataChannels(cn);
@@ -121,7 +121,8 @@ public class YoutubeController {
         JSONArray jArray = new JSONArray();
         for(String key: keySet){
         	JSONObject channelJSON = new JSONObject();
-        	channelJSON.put(key,channelRes.get(key));
+        	channelJSON.put("Channels",key);
+        	channelJSON.put("Videos",channelRes.get(key));
         	jArray.put(channelJSON);
         }
         jObject.put("channelList", jArray);
