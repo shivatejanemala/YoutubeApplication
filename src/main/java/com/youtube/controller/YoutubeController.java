@@ -105,11 +105,12 @@ public class YoutubeController {
         	jArrayCW.put(jArrayCW);
         }
         jObject.put("primaryList", jArray);
-        jObject.put("secondList", jArray);
+        jObject.put("secondList", jArrayCW);
         System.out.println("query4 JSON: "+jObject);
 	    if ((!cR1.isEmpty()) && (!cR2.isEmpty())) {
 	    	mav = new ModelAndView("welcome");
 	      mav.addObject("categoryData", jObject);
+	      mav.addObject("queryType","query4");
 	    } else {
 	      mav = new ModelAndView("login");
 	      mav.addObject("message", "Data doesn't exist!!");

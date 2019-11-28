@@ -20,6 +20,8 @@
 			<td><div onclick="goHome()">Home</div></td>
 		</tr>
 	</table>
+		<div id = "piechart"></div>
+	<div id = "barchart"></div>
 	<div id="categoryData" style="display:none;">${categoryData}</div>
 	<div id="queryType" style="display:none;">${queryType}</div>
 </body>
@@ -42,8 +44,9 @@ function drawChart(){
 	var jsonData= JSON.parse(document.getElementById('categoryData').innerHTML);
 	var queryType= document.getElementById('queryType').innerHTML;
 	if(queryType == 'query4'){
-	for (var i = 0; i < jsonData.categoryList.length; i++) {
-        data.addRow([jsonData[i].videos, jsonData[i].views]);
+		jsonData = jsonData.primaryList;
+	for (var i = 0; i < jsonData.length; i++) {
+		data.addRow([ jsonData[i].Categories, parseInt(jsonData[i].Videos,10)]);
     }
 	}
 	var pieTitle = {'title':'Videos-Views', 'width':550, 'height':400};
