@@ -20,6 +20,9 @@
 			<td><div onclick="goHome()">Home</div></td>
 		</tr>
 	</table>
+	<input type="radio" name="classification" value="countries" onclick="toggleGraphs(this)"> Selected Countries
+<input type="radio" name="classification" value="WorldWide" onclick="toggleGraphs(this)"> World Wide  
+	
 		<div id = "piechart"></div>
 	<div id = "barchart"></div>
 	<div id="categoryData" style="display:none;">${categoryData}</div>
@@ -33,28 +36,48 @@ function goHome(){
 	window.location.href= path.substr(0,path.indexOf('/query'));
 
 }
+function toggleGraphs(id){
+	//alert(id);
+	if(id.value=="countries"){
+		var data = new google.visualization.DataTable();
+		data.addColumn('string','Videos');
+		data.addColumn('number','Views');
+		createChart(data,1);
+	}else if(id.value=="WorldWide"){
+		var data = new google.visualization.DataTable();
+		data.addColumn('string','Videos');
+		data.addColumn('number','Views');
+		createChart(data,0);
+	}
+}
 function drawChart(){
-	var objectData = document.getElementById('categoryData');
-	console.log('object- '+objectData);
-	console.log('Title- '+ objectData.Title);
 	var data = new google.visualization.DataTable();
 	data.addColumn('string','Videos');
 	data.addColumn('number','Views');
+	createChart(data,0);
+	}
 	
+function createChart(data,id){
 	var jsonData= JSON.parse(document.getElementById('categoryData').innerHTML);
 	var queryType= document.getElementById('queryType').innerHTML;
 	if(queryType == 'query4'){
-		jsonData = jsonData.primaryList;
+		if(id == 1){
+			jsonData = jsonData.secondList;
+		}
+		else{
+			jsonData = jsonData.primaryList;
+		}
 	for (var i = 0; i < jsonData.length; i++) {
-		data.addRow([ jsonData[i].Categories, parseInt(jsonData[i].Videos,10)]);
+		var category = jsonData[i].Categories;
+		category = category.toString();
+		category = category.replace(/\&amp;/g,'and');
+		data.addRow([category, parseInt(jsonData[i].Videos,10)]);
     }
 	}
-	var pieTitle = {'title':'Videos-Views', 'width':550, 'height':400};
-	  var barTitle = {'title':'Videos-Views', 'width':550, 'height':400, colors:['blue','black']};
-	  var piechart = new google.visualization.PieChart(document.getElementById('piechart'));
-		var barchart = new google.visualization.BarChart(document.getElementById('barchart'));
-		  piechart.draw(data, pieTitle);
-		  barchart.draw(data, barTitle);
+	//var pieTitle = {'title':'Videos-Views', 'width':550, 'height':400};
+	  var columnTitle = {'title':'Most Viewed Categories', 'width':550, 'height':400, colors:['blue','black']};
+		var columnChart = new google.visualization.ColumnChart(document.getElementById('barchart'));
+		columnChart.draw(data, columnTitle);
 }
 </script>
 </html>
