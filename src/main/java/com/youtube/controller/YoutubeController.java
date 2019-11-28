@@ -86,26 +86,37 @@ public class YoutubeController {
 	    String cn= "1,3";
 	    List<String> items = Arrays.asList(cn.split("\\s*,\\s*"));
 	    JSONObject jObject = new JSONObject();
-	    HashMap<String,String> categoryRes = videoService.dataCategories(cn);
-        Set<String> keySet = categoryRes.keySet();
+	    HashMap<String,String> cR1 = videoService.dataQuery4(cn);
+	    HashMap<String,String> cR2 = videoService.dataQuery4(cn);
+        Set<String> keySet1 = cR1.keySet();
+        Set<String> keySet2 = cR2.keySet();
         JSONArray jArray = new JSONArray();
-        for(String key: keySet){
-        	JSONObject channelJSON = new JSONObject();
-        	channelJSON.put("Categories",key);
-        	channelJSON.put("Videos",categoryRes.get(key));
-        	jArray.put(channelJSON);
+        for(String key: keySet1){
+        	JSONObject cR1JSON = new JSONObject();
+        	cR1JSON.put("Categories",key);
+        	cR1JSON.put("Videos",cR1.get(key));
+        	jArray.put(cR1JSON);
         }
-        jObject.put("categoryList", jArray);
+        JSONArray jArrayCW = new JSONArray();
+        for(String key: keySet2){
+        	JSONObject cR2JSON = new JSONObject();
+        	cR2JSON.put("Categories",key);
+        	cR2JSON.put("Videos",cR2.get(key));
+        	jArrayCW.put(jArrayCW);
+        }
+        jObject.put("primaryList", jArray);
+        jObject.put("secondList", jArray);
         System.out.println("query4 JSON: "+jObject);
-	    if (!categoryRes.isEmpty()) {
+	    if ((!cR1.isEmpty()) && (!cR2.isEmpty())) {
 	    	mav = new ModelAndView("welcome");
-	      mav.addObject("queryType", "query4");
+	      mav.addObject("categoryData", jObject);
 	    } else {
 	      mav = new ModelAndView("login");
 	      mav.addObject("message", "Data doesn't exist!!");
 	    }
 	    return mav;
 	  }
+	  
 	  
 	  @RequestMapping(value = "/query3", method = RequestMethod.GET)
 	  public ModelAndView query3(HttpServletRequest request, HttpServletResponse response) throws SQLException, JSONException {
@@ -125,10 +136,10 @@ public class YoutubeController {
         	channelJSON.put("Videos",channelRes.get(key));
         	jArray.put(channelJSON);
         }
-        jObject.put("channelList", jArray);
+        jObject.put("primaryList", jArray);
         System.out.println("query3 JSON: "+jObject);
 	    if (!channelRes.isEmpty()) {
-	    	mav = new ModelAndView("login");
+	    	mav = new ModelAndView("welcome");
 	      mav.addObject("channelData", jObject);
 	    } else {
 	      mav = new ModelAndView("login");

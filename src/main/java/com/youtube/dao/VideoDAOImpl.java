@@ -91,7 +91,7 @@ public class VideoDAOImpl implements VideoDAO {
 		 	System.out.println("after ps Query4");
 		 	while(rs.next()) {
 		 		System.out.println("Query executed Successfully");
-		 		result.put("Categories\":"+"\""+rs.getString("CATEGORY_NAME")+"\"","videos\":"+"\""+rs.getInt("cnt")+"\"");
+		 		result.put(rs.getString("CATEGORY_NAME"),String.valueOf(rs.getInt("cnt")));
 		 	}
 		 	rs.close();
 			conn.close();
