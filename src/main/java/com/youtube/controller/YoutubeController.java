@@ -1,6 +1,7 @@
 package com.youtube.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.youtube.model.Channels;
 import com.youtube.model.Videos;
+import com.youtube.model.query5;
 import com.youtube.service.VideoServiceImpl;
 
 
@@ -83,11 +85,9 @@ public class YoutubeController {
 	    System.out.println("Into Query 4 logic");
 	  //  System.out.println("countryList:"+cntryList);
 	  //  List<String> items = Arrays.asList(cntryList.split("\\s*,\\s*"));
-	    String cn= "1,3";
-	    List<String> items = Arrays.asList(cn.split("\\s*,\\s*"));
 	    JSONObject jObject = new JSONObject();
-	    HashMap<String,String> cR1 = videoService.dataQuery4(cn);
-	    HashMap<String,String> cR2 = videoService.dataQuery4(cn);
+	    HashMap<String,String> cR1 = videoService.dataQuery4();
+	    HashMap<String,String> cR2 = videoService.dataQuery4CW(cntryList);
         Set<String> keySet1 = cR1.keySet();
         Set<String> keySet2 = cR2.keySet();
         JSONArray jArray = new JSONArray();
@@ -102,7 +102,7 @@ public class YoutubeController {
         	JSONObject cR2JSON = new JSONObject();
         	cR2JSON.put("Categories",key);
         	cR2JSON.put("Videos",cR2.get(key));
-        	jArrayCW.put(jArrayCW);
+        	jArrayCW.put(cR2JSON);
         }
         jObject.put("primaryList", jArray);
         jObject.put("secondList", jArrayCW);
@@ -110,7 +110,6 @@ public class YoutubeController {
 	    if ((!cR1.isEmpty()) && (!cR2.isEmpty())) {
 	    	mav = new ModelAndView("welcome");
 	      mav.addObject("categoryData", jObject);
-	      mav.addObject("queryType","query4");
 	    } else {
 	      mav = new ModelAndView("login");
 	      mav.addObject("message", "Data doesn't exist!!");
@@ -125,10 +124,9 @@ public class YoutubeController {
 	    System.out.println("Into Query 3 logic");
 	  //  System.out.println("countryList:"+cntryList);
 	  //  List<String> items = Arrays.asList(cntryList.split("\\s*,\\s*"));
-	    String cn= ",1,3";
 	   // List<String> items = Arrays.asList(cn.split("\\s*,\\s*"));
 	    JSONObject jObject = new JSONObject();
-	    HashMap<String,String> channelRes = videoService.dataChannels(cn);
+	    HashMap<String,String> channelRes = videoService.dataChannels(cntryList);
         Set<String> keySet = channelRes.keySet();
         JSONArray jArray = new JSONArray();
         for(String key: keySet){
@@ -147,5 +145,36 @@ public class YoutubeController {
 	      mav.addObject("message", "Data doesn't exist!!");
 	    }
 	    return mav;
+	  }
+	  
+	  @RequestMapping(value = "/query5", method = RequestMethod.GET)
+	  public ModelAndView query5(HttpServletRequest request, HttpServletResponse response) throws SQLException, JSONException {
+		  ModelAndView mav = null;
+		    System.out.println("Into query5 logic");
+		  //  System.out.println("countryList:"+cntryList);
+		  //  List<String> items = Arrays.asList(cntryList.split("\\s*,\\s*"));
+		   // List<String> items = Arrays.asList(cn.split("\\s*,\\s*"));
+		    JSONObject jObject = new JSONObject();
+		 //   System.out.println("countryList in query5: "+cntryList);
+		    ArrayList<query5> catList = videoService.dataQuery5();
+	        JSONArray jArray = new JSONArray();
+	        for(query5 key: catList){
+	        	JSONObject channelJSON = new JSONObject();
+	        	channelJSON.put("DaysPopular",key.getDaysPop());
+	        	channelJSON.put("Video_url",key.getVideo_id());
+	        	channelJSON.put("CategoryName",key.getName());
+	        	channelJSON.put("Title",key.getTitle());
+	        	jArray.put(channelJSON);
+	        }
+	        jObject.put("primaryList", jArray);
+	        System.out.println("query5 JSON: "+jObject);
+		    if (!catList.isEmpty()) {
+		    	mav = new ModelAndView("welcome");
+		      mav.addObject("CategoryVideoList", jObject);
+		    } else {
+		      mav = new ModelAndView("login");
+		      mav.addObject("message", "Data doesn't exist!!");
+		    }
+		    return mav;
 	  }
 }

@@ -170,4 +170,47 @@ public class VideoDAOImpl implements VideoDAO {
 		     
 		return result;
 	 }
+
+  public ArrayList<query5> Query5() throws SQLException{
+		 ArrayList<query5> result = new ArrayList<query5>();
+		 DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+		// String inp  = countries.substring(1);
+		// System.out.println("input Query5"+inp);
+		    String sql = "SELECT CATEGORY_NAME, TITLE, CNT AS DAYS_POPULAR, RNK FROM\r\n" + 
+		    		"(\r\n" + 
+		    		"SELECT CATEGORY_NAME, TITLE, COUNT(TRENDING_DT) CNT,\r\n" + 
+		    		"RANK() OVER(partition by CATEGORY_NAME ORDER BY COUNT(TRENDING_DT) DESC) rnk\r\n" + 
+		    		"FROM VIDEOS v join CATEGORY c on v.CATEGORY_ID = c.CATEGORY_ID\r\n" + 
+		    		"GROUP BY CATEGORY_NAME, TITLE\r\n" + 
+		    		")\r\n" + 
+		    		"WHERE rnk <= 5\r\n" + 
+		    		"ORDER BY CATEGORY_NAME, RNK ASC\r\n" + 
+		    		"";
+		    System.out.println("outside Query5"+sql);
+		    try {
+		    	System.out.println("inside Query5");
+	 Connection conn =  DriverManager.getConnection("jdbc:oracle:thin:@oracle.cise.ufl.edu:1521:orcl", "spujitha", "ciseORC4");
+		    System.out.println("DB Connection successfully established");
+		    PreparedStatement ps = conn.prepareStatement(sql);
+		 	ResultSet rs = ps.executeQuery();
+		 	System.out.println("after ps Query5");
+		 	while(rs.next()) {
+		 		query5 q = new query5();
+		 		System.out.println("Query5 executed Successfully");
+		 		q.setDaysPop(rs.getInt("DAYS_POPULAR"));
+		 		q.setName(rs.getString("CATEGORY_NAME"));
+		 		q.setTitle(rs.getString("TITLE"));
+		 	//	q.setVideo_id("https://www.youtube.com/watch?v="+rs.getString("VIDEO_ID"));
+		 		q.setVideo_id("https://www.youtube.com/watch?v=ocZqvs7gUzc");
+		 		result.add(q);
+		 		
+		 	}
+		 	rs.close();
+			conn.close();
+		    }catch(Exception e) {
+		    	System.out.println("SQL ERROR FOUND __--"+e);
+		    }
+		     
+		return result;
+	 }
 }

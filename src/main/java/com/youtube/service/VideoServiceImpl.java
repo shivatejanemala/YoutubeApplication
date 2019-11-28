@@ -1,12 +1,13 @@
 package com.youtube.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.youtube.model.Videos;
+import com.youtube.model.query5;
 import com.youtube.dao.VideoDAOImpl;
 import com.youtube.dao.VideoDAO;
 import com.youtube.model.Channels;
@@ -25,7 +26,13 @@ public class VideoServiceImpl implements VideoDAO{
 	    return videoDao.validateUser(channel);
 	  }
 	  
-	  public HashMap<String,String> dataQuery4(String countries) throws SQLException {
+	  public ArrayList<query5> dataQuery5() throws SQLException {
+		  VideoDAOImpl tdCat = new VideoDAOImpl();
+		           //  Query4CntWise(countries);
+		    return tdCat.Query5();
+		  }
+	  
+	  public HashMap<String,String> dataQuery4() throws SQLException {
 		  VideoDAOImpl tdCat = new VideoDAOImpl();
 		           //  Query4CntWise(countries);
 		    return tdCat.Query4();
