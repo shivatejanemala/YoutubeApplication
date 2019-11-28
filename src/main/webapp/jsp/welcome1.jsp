@@ -20,16 +20,14 @@
 			<td><div onclick="goHome()">Home</div></td>
 		</tr>
 	</table>
-	<input type="radio" name="classification" value="countries" onclick="toggleGraphs(this)"> Selected Countries
-<input type="radio" name="classification" value="WorldWide" onclick="toggleGraphs(this)"> World Wide  
 	
 		<div id = "piechart"></div>
 	<div id = "barchart"></div>
-	<div id="categoryData" style="display:none;">${categoryData}</div>
+	<div id="categoryData" style="display:none;">${CategoryVideoList}</div>
 	<div id="queryType" style="display:none;">${queryType}</div>
 </body>
 <script>
-google.charts.load('current', {'packages':['corechart']});
+google.charts.load('current', {'packages':['table']});
 google.charts.setOnLoadCallback(drawChart);
 function goHome(){
 	var path = window.location.href;
@@ -52,8 +50,10 @@ function toggleGraphs(id){
 }
 function drawChart(){
 	var data = new google.visualization.DataTable();
-	data.addColumn('string','Videos');
-	data.addColumn('number','Views');
+	data.addColumn('string','Video URL');
+	data.addColumn('string','Category Name');
+	data.addColumn('string','Title');
+	data.addColumn('number','Days Popular');
 	createChart(data,0);
 	}
 	
@@ -67,15 +67,23 @@ function createChart(data,id){
 			jsonData = jsonData.primaryList;
 		}
 	for (var i = 0; i < jsonData.length; i++) {
-		var category = jsonData[i].Categories;
-		category = category.toString();
-		category = category.replace(/\&amp;/g,'and');
-		data.addRow([category, parseInt(jsonData[i].Videos,10)]);
+		var DaysPopular = jsonData[i].DaysPopular;
+		var Video_url = jsonData[i].Video_url;
+		var CategoryName = jsonData[i].CategoryName;
+		var Title = jsonData[i].Title;
+		data.addRow([Video_url,CategoryName, Title, parseInt(jsonData[i].DaysPopular,10)]);
     }
 	//var pieTitle = {'title':'Videos-Views', 'width':550, 'height':400};
-	  var columnTitle = {'title':'Most Viewed Categories', 'width':550, 'height':400, colors:['blue','black']};
-		var columnChart = new google.visualization.ColumnChart(document.getElementById('barchart'));
-		columnChart.draw(data, columnTitle);
+	  var tableTitle = {'title':'Most Viewed Categories', 'width':550, 'height':400, colors:['blue','black']};
+		var tableChart = new google.visualization.Table(document.getElementById('barchart'));
+		tableChart.draw(data, tableTitle);
+		
+		var selectHandler = function(e) {
+	         window.open(data.getValue(tableChart.getSelection()[0]['row'], 0 ));
+	        }
+
+	        // Add our selection handler.
+	        google.visualization.events.addListener(tableChart, 'select', selectHandler);
 }
 </script>
 </html>

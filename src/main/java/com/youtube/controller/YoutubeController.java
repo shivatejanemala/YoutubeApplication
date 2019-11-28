@@ -108,9 +108,11 @@ public class YoutubeController {
         jObject.put("secondList", jArrayCW);
         System.out.println("query4 JSON: "+jObject);
 	    if ((!cR1.isEmpty()) && (!cR2.isEmpty())) {
+	    	System.out.println("data found");
 	    	mav = new ModelAndView("welcome");
 	      mav.addObject("categoryData", jObject);
 	    } else {
+	    	System.out.println("data not found");
 	      mav = new ModelAndView("login");
 	      mav.addObject("message", "Data doesn't exist!!");
 	    }
@@ -169,7 +171,7 @@ public class YoutubeController {
 	        jObject.put("primaryList", jArray);
 	        System.out.println("query5 JSON: "+jObject);
 		    if (!catList.isEmpty()) {
-		    	mav = new ModelAndView("welcome");
+		    	mav = new ModelAndView("welcome1");
 		      mav.addObject("CategoryVideoList", jObject);
 		    } else {
 		      mav = new ModelAndView("login");
