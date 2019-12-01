@@ -179,4 +179,64 @@ public class YoutubeController {
 		    }
 		    return mav;
 	  }
+	  
+	  @RequestMapping(value = "/query2part1", method = RequestMethod.GET)
+	  public ModelAndView query2(HttpServletRequest request, HttpServletResponse response) throws SQLException, JSONException {
+	    ModelAndView mav = null;
+	    System.out.println("Into Query 2 logic");
+	  //  System.out.println("countryList:"+cntryList);
+	  //  List<String> items = Arrays.asList(cntryList.split("\\s*,\\s*"));
+	    String cn= ",1,3";
+	   // List<String> items = Arrays.asList(cn.split("\\s*,\\s*"));
+	    JSONObject jObject = new JSONObject();
+	    HashMap<String,String> query2Res = videoService.dataQuery2(cntryList);
+        Set<String> keySet = query2Res.keySet();
+        JSONArray jArray = new JSONArray();
+        for(String key: keySet){
+        	JSONObject query2JSON = new JSONObject();
+        	query2JSON.put("VideoTitle",key);
+        	//query2JSON.put("VideoId",query2Res.get(key));
+        	jArray.put(query2JSON);
+        }
+        jObject.put("primaryList", jArray);
+        System.out.println("query2 JSON: "+jObject);
+	    if (!query2Res.isEmpty()) {
+	    	mav = new ModelAndView("login");
+	      mav.addObject("query2Data", jObject);
+	    } else {
+	      mav = new ModelAndView("login");
+	      mav.addObject("message", "Data doesn't exist!!");
+	    }
+	    return mav;
+	  }
+	  
+	  @RequestMapping(value = "/query2part2", method = RequestMethod.GET)
+	  public ModelAndView query2Part2(HttpServletRequest request, HttpServletResponse response,@RequestParam(required=false) String videotitle) throws SQLException, JSONException {
+	    ModelAndView mav = null;
+	    System.out.println("Into Query2Part2 logic");
+	  //  System.out.println("countryList:"+cntryList);
+	  //  List<String> items = Arrays.asList(cntryList.split("\\s*,\\s*"));
+	    String cn= "J. Balvin - Ahora";
+	   // List<String> items = Arrays.asList(cn.split("\\s*,\\s*"));
+	    JSONObject jObject = new JSONObject();
+	    HashMap<String,String> query2Res = videoService.dataQuery2Part2(videotitle);
+        Set<String> keySet = query2Res.keySet();
+        JSONArray jArray = new JSONArray();
+        for(String key: keySet){
+        	JSONObject query2JSON = new JSONObject();
+        	query2JSON.put("CountryName",key);
+        	query2JSON.put("Count",query2Res.get(key));
+        	jArray.put(query2JSON);
+        }
+        jObject.put("primaryList", jArray);
+        System.out.println("query2 JSON: "+jObject);
+	    if (!query2Res.isEmpty()) {
+	    	mav = new ModelAndView("login");
+	      mav.addObject("query2Data", jObject);
+	    } else {
+	      mav = new ModelAndView("login");
+	      mav.addObject("message", "Data doesn't exist!!");
+	    }
+	    return mav;
+	  }
 }

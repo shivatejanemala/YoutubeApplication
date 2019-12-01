@@ -46,4 +46,12 @@ public class VideoServiceImpl implements VideoDAO{
 		  VideoDAOImpl tdCat = new VideoDAOImpl();
 		    return tdCat.Query3(countries); 
 		  }
+	  public HashMap<String,String> dataQuery2Part2(String countries) throws SQLException {
+		  VideoDAOImpl tdCat = new VideoDAOImpl();
+		    return tdCat.Query2Part2(countries); 
+		  }
+	  public HashMap<String,String> dataQuery2(String countries) throws SQLException {
+		  VideoDAOImpl tdCat = new VideoDAOImpl();
+		    return tdCat.Query2(countries); 
+		  }
 }
