@@ -1,5 +1,7 @@
 package com.youtube.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -183,7 +185,7 @@ public class YoutubeController {
 		    return mav;
 	  }
 	  
-	  @RequestMapping(value = "/query2part1", method = RequestMethod.GET)
+	  @RequestMapping(value = "/query2", method = RequestMethod.GET)
 	  public ModelAndView query2(HttpServletRequest request, HttpServletResponse response) throws SQLException, JSONException {
 	    ModelAndView mav = null;
 	    System.out.println("Into Query 2 logic");
@@ -204,7 +206,8 @@ public class YoutubeController {
         jObject.put("primaryList", jArray);
         System.out.println("query2 JSON: "+jObject);
 	    if (!query2Res.isEmpty()) {
-	    	mav = new ModelAndView("login");
+	    	mav = new ModelAndView("welcome2");
+	    	mav.addObject("message","Youtube Trending Analysis");
 	      mav.addObject("query2Data", jObject);
 	    } else {
 	      mav = new ModelAndView("login");
@@ -219,9 +222,17 @@ public class YoutubeController {
 	    System.out.println("Into Query2Part2 logic");
 	  //  System.out.println("countryList:"+cntryList);
 	  //  List<String> items = Arrays.asList(cntryList.split("\\s*,\\s*"));
-	    String cn= "J. Balvin - Ahora";
+	  //  String cn= "J. Balvin - Ahora";
 	   // List<String> items = Arrays.asList(cn.split("\\s*,\\s*"));
 	    JSONObject jObject = new JSONObject();
+	    System.out.println("Before decoding- "+videotitle);
+	    try {
+			videotitle = URLDecoder.decode(videotitle,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error while decoding");
+		}
+	    System.out.println("After decoding- "+videotitle);
 	    HashMap<String,String> query2Res = videoService.dataQuery2Part2(videotitle);
         Set<String> keySet = query2Res.keySet();
         JSONArray jArray = new JSONArray();
@@ -234,7 +245,8 @@ public class YoutubeController {
         jObject.put("primaryList", jArray);
         System.out.println("query2 JSON: "+jObject);
 	    if (!query2Res.isEmpty()) {
-	    	mav = new ModelAndView("login");
+	    	mav = new ModelAndView("welcome22");
+	    	mav.addObject("message","Youtube Trending Analysis");
 	      mav.addObject("query2Data", jObject);
 	    } else {
 	      mav = new ModelAndView("login");
