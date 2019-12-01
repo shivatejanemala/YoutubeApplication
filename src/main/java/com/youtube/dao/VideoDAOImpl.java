@@ -252,14 +252,14 @@ public class VideoDAOImpl implements VideoDAO {
 		    		"(SELECT TITLE,COUNT(DISTINCT COUNTRY_NAME) CT\r\n" + 
 		    		"FROM VIDEOS v join country c on v.country_id = c.country_id\r\n" + 
 		    		"GROUP BY TITLE\r\n" + 
-		    		"HAVING COUNT(DISTINCT COUNTRY_NAME) = 2\r\n" + 
+		    		"HAVING COUNT(DISTINCT COUNTRY_NAME) = 3\r\n" + 
 		    		"ORDER BY CT DESC ) subq\r\n" + 
 		    		"where rownum<6\r\n" + 
 		    		"";
 		    System.out.println("outside Query2"+sql);
 		    try {
 		    	System.out.println("inside Query2");
-	 Connection conn =  DriverManager.getConnection("jdbc:oracle:thin:@oracle.cise.ufl.edu:1521:orcl", "spujitha", "ciseORC4");
+		    	Connection conn =  DriverManager.getConnection("jdbc:oracle:thin:@oracle.cise.ufl.edu:1521:orcl", "spujitha", "ciseORC4");
 		    System.out.println("DB Connection successfully established");
 		    PreparedStatement ps = conn.prepareStatement(sql);
 		 	ResultSet rs = ps.executeQuery();
@@ -276,14 +276,15 @@ public class VideoDAOImpl implements VideoDAO {
 		     
 		return result;
 	 }
-public HashMap<String,String> Query2Part2(String countries) throws SQLException{
+  public HashMap<String,String> Query2Part2(String countries) throws SQLException{
 		 HashMap<String,String> result = new HashMap<String,String>();
 		 DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 		String inp  = ""+countries+"";
-	    String quotedX = quote(countries);
+	 
+	    String finalinput=inp.replace("'","\"");
+	    String quotedX = quote(countries.substring(0,8)+"%");
 		 System.out.println("input Query2"+countries);
-		    String sql = "SELECT\r\n" + 
-		    		"   Country_name ,\r\n" + 
+		    String sql = "select country_name,sum(ct)as count from (SELECT a.Country_name ,\r\n" + 
 		    		"    COUNT(DISTINCT a.trending_dt) CT\r\n" + 
 		    		"FROM\r\n" + 
 		    		"    ( SELECT\r\n" + 
@@ -292,9 +293,10 @@ public HashMap<String,String> Query2Part2(String countries) throws SQLException{
 		    		"            VIDEOS    v,\r\n" + 
 		    		"            COUNTRY   c\r\n" + 
 		    		"        WHERE\r\n" + 
-		    		"            v.COUNTRY_ID = c.COUNTRY_ID and v.title="+quotedX+" ) a\r\n" + 
+		    		"            v.COUNTRY_ID = c.COUNTRY_ID and v.title like "+quotedX+"  ) a\r\n" + 
 		    		"GROUP BY\r\n" + 
-		    		"    a.title,a.country_name";
+		    		"    a.title,a.country_name)\r\n" + 
+		    		"    group by country_name";
 		    System.out.println("outside Query2Part2"+sql);
 		    try {
 		    	System.out.println("inside Query2Part2");
@@ -305,7 +307,7 @@ public HashMap<String,String> Query2Part2(String countries) throws SQLException{
 		 	System.out.println("after ps Query2Part2");
 		 	while(rs.next()) {
 		 		System.out.println("Query executed Successfully");
-		 		result.put(rs.getString("COUNTRY_NAME"),String.valueOf(rs.getInt("ct")));
+		 		result.put(rs.getString("COUNTRY_NAME"),String.valueOf(rs.getInt("count")));
 		 	
 		 	}
 		 	rs.close();
