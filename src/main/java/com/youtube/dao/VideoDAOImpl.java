@@ -318,6 +318,38 @@ public class VideoDAOImpl implements VideoDAO {
 		     
 		return result;
 	 }
+  
+  public HashMap<String,String> Query7(String countries) throws SQLException{
+		 HashMap<String,String> result = new HashMap<String,String>();
+		 DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+		String inp  = ""+countries+"";
+	    String quotedX = quote(countries);
+		 System.out.println("input Query7"+countries);
+		    String sql = "SELECT COUNTRY_NAME,COUNT(DISTINCT TITLE)CNT\r\n" + 
+		    		"FROM VIDEOS V JOIN COUNTRY C ON V.COUNTRY_ID=C.COUNTRY_ID JOIN STATISTICS S ON S.STAT_ID=V.STAT_ID\r\n" + 
+		    		"WHERE S.VIDEO_ERR_REM='T'\r\n" + 
+		    		"GROUP BY COUNTRY_NAME";
+		    System.out.println("outside Query7"+sql);
+		    try {
+		    	System.out.println("inside Query7");
+	 Connection conn =  DriverManager.getConnection("jdbc:oracle:thin:@oracle.cise.ufl.edu:1521:orcl", "spujitha", "ciseORC4");
+		    System.out.println("DB Connection successfully established");
+		    PreparedStatement ps = conn.prepareStatement(sql);
+		 	ResultSet rs = ps.executeQuery();
+		 	System.out.println("after ps Query7");
+		 	while(rs.next()) {
+		 		System.out.println("Query executed Successfully");
+		 		result.put(rs.getString("COUNTRY_NAME"),String.valueOf(rs.getInt("CNT")));
+		 	
+		 	}
+		 	rs.close();
+			conn.close();
+		    }catch(Exception e) {
+		    	System.out.println("SQL ERROR FOUND __--"+e);
+		    }
+		     
+		return result;
+	 }
 public static String quote(String s) {
 	    return new StringBuilder()
 	        .append('\'')

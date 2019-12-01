@@ -281,4 +281,34 @@ public class YoutubeController {
 	    }
 	    return mav;
 	  }
+	  
+	  @RequestMapping(value = "/query7", method = RequestMethod.GET)
+	  public ModelAndView query7(HttpServletRequest request, HttpServletResponse response) throws SQLException, JSONException {
+	    ModelAndView mav = null;
+	    System.out.println("Into Query 7 logic");
+	  //  System.out.println("countryList:"+cntryList);
+	  //  List<String> items = Arrays.asList(cntryList.split("\\s*,\\s*"));
+	    String cn= ",1,3";
+	   // List<String> items = Arrays.asList(cn.split("\\s*,\\s*"));
+	    JSONObject jObject = new JSONObject();
+	    HashMap<String,String> query7Res = videoService.dataQuery7(cn);
+        Set<String> keySet = query7Res.keySet();
+        JSONArray jArray = new JSONArray();
+        for(String key: keySet){
+        	JSONObject query7JSON = new JSONObject();
+        	query7JSON.put("CountryName",key);
+        	query7JSON.put("No.of Controversial Videos",query7Res.get(key));
+        	jArray.put(query7JSON);
+        }
+        jObject.put("primaryList", jArray);
+        System.out.println("query7 JSON: "+jObject);
+	    if (!query7Res.isEmpty()) {
+	    	mav = new ModelAndView("login");
+	      mav.addObject("query7Data", jObject);
+	    } else {
+	      mav = new ModelAndView("login");
+	      mav.addObject("message", "Data doesn't exist!!");
+	    }
+	    return mav;
+	  }
 }
