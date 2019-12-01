@@ -214,6 +214,35 @@ public class VideoDAOImpl implements VideoDAO {
 		return result;
 	 }
   
+  public HashMap<String,Integer> Query1() throws SQLException{
+		HashMap<String,Integer> result = new HashMap<String,Integer>();
+		 DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+		    String sql = "SELECT C.COUNTRY_NAME,SUM(C.CNT)as \"NO_OF_POPULAR_VIDEOS\" FROM (SELECT COUNTRY_NAME, VIDEO_ID, COUNT(DISTINCT TRENDING_DT) CNT\r\n" + 
+		    		"FROM VIDEOS v join country c on v.country_id = c.country_id\r\n" + 
+		    		"GROUP BY COUNTRY_NAME, VIDEO_ID\r\n" + 
+		    		"ORDER BY CNT DESC)C GROUP BY COUNTRY_NAME";
+		    System.out.println("outside Query1"+sql);
+		    try {
+		    	System.out.println("inside Query1");
+	Connection conn =  DriverManager.getConnection("jdbc:oracle:thin:@oracle.cise.ufl.edu:1521:orcl", "spujitha", "ciseORC4");
+		    System.out.println("DB Connection successfully established");
+		    PreparedStatement ps = conn.prepareStatement(sql);
+		 	ResultSet rs = ps.executeQuery();
+		 	System.out.println("after ps Query1");
+		 	while(rs.next()) {
+		 		System.out.println("Query1 executed Successfully");
+		 		result.put(rs.getString("COUNTRY_NAME"),rs.getInt("NO_OF_POPULAR_VIDEOS"));
+		 		
+		 	}
+		 	rs.close();
+			conn.close();
+		    }catch(Exception e) {
+		    	System.out.println("SQL ERROR FOUND __--"+e);
+		    }
+		     
+		return result;
+	}    
+  
   public HashMap<String,String> Query2(String countries) throws SQLException{
 		 HashMap<String,String> result = new HashMap<String,String>();
 		 DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());

@@ -239,4 +239,30 @@ public class YoutubeController {
 	    }
 	    return mav;
 	  }
+	  
+	  @RequestMapping(value = "/query1", method = RequestMethod.GET)
+	  public ModelAndView query1(HttpServletRequest request, HttpServletResponse response) throws SQLException, JSONException {
+	    ModelAndView mav = null;
+	    System.out.println("Into Query1 logic");
+	    JSONObject jObject = new JSONObject();
+	    HashMap<String,Integer> query1Res = videoService.dataQuery1();
+        Set<String> keySet = query1Res.keySet();
+        JSONArray jArray = new JSONArray();
+        for(String key: keySet){
+        	JSONObject query1JSON = new JSONObject();
+        	query1JSON.put("CountryName",key);
+        	query1JSON.put("PopularVideos",query1Res.get(key));
+        	jArray.put(query1JSON);
+        }
+        jObject.put("primaryList", jArray);
+        System.out.println("query1 JSON: "+jObject);
+	    if (!query1Res.isEmpty()) {
+	    	mav = new ModelAndView("login");
+	      mav.addObject("query1Data", jObject);
+	    } else {
+	      mav = new ModelAndView("login");
+	      mav.addObject("message", "Data doesn't exist!!");
+	    }
+	    return mav;
+	  }
 }
