@@ -23,15 +23,15 @@
  
  <table style="margin-left:300px;display:inline-block;">
  	<tr>
- 		<td style="width: 295px;height: 70px;border: 1px solid blue;font-family: Georgia, serif;font-size: x-large;text-align: center;background-color: white;" onclick = "selectCountries(1,this);"> France</td>
- 		<td style="width: 295px;height: 70px;border: 1px solid blue;font-family: Georgia, serif;font-size: x-large;text-align: center;background-color: white;" onclick = "selectCountries(2,this);">Canada</td>
+ 		<td style="width: 295px;height: 70px;border: 1px solid blue;font-family: Georgia, serif;font-size: x-large;text-align: center;background-color: white;" onclick = "selectCountries(5,this);"> France</td>
+ 		<td style="width: 295px;height: 70px;border: 1px solid blue;font-family: Georgia, serif;font-size: x-large;text-align: center;background-color: white;" onclick = "selectCountries(1,this);">Canada</td>
  	</tr>
  	<tr>
- 		<td style="width: 295px;height: 70px;border: 1px solid blue;font-family: Georgia, serif;font-size: x-large;text-align: center;background-color: white;" onclick = "selectCountries(3,this);">United States</td>
- 		<td style="width: 295px;height: 70px;border: 1px solid blue;font-family: Georgia, serif;font-size: x-large;text-align: center;background-color: white;" onclick = "selectCountries(4,this);">Great Britain</td>
+ 		<td style="width: 295px;height: 70px;border: 1px solid blue;font-family: Georgia, serif;font-size: x-large;text-align: center;background-color: white;" onclick = "selectCountries(2,this);">United States</td>
+ 		<td style="width: 295px;height: 70px;border: 1px solid blue;font-family: Georgia, serif;font-size: x-large;text-align: center;background-color: white;" onclick = "selectCountries(3,this);">Great Britain</td>
  	</tr>
  	<tr>
- 		<td style="width: 295px;height: 70px;border: 1px solid blue;font-family: Georgia, serif;font-size: x-large;text-align: center;background-color: white;" onclick = "selectCountries(5,this);">Germany</td>
+ 		<td style="width: 295px;height: 70px;border: 1px solid blue;font-family: Georgia, serif;font-size: x-large;text-align: center;background-color: white;" onclick = "selectCountries(4,this);">Germany</td>
  	</tr>
  </table>
  

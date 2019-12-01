@@ -7,25 +7,17 @@
 <title>Welcome</title>
 </head>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<body>
+<body style="background-color:#F5F5DB">
 	<table>
 		<tr>
-			<td>${firstname}</td>
-		</tr>
-		<tr>
-		</tr>
-		<tr>
-		</tr>
-		<tr>
+			<td style="padding-left:550px;padding-right:300px;">${message}</td>
 			<td><div onclick="goHome()">Home</div></td>
 		</tr>
 	</table>
-	<input type="radio" name="classification" value="countries" onclick="toggleGraphs(this)"> Selected Countries
-<input type="radio" name="classification" value="WorldWide" onclick="toggleGraphs(this)"> World Wide  
 	
 		<div id = "piechart"></div>
-	<div id = "barchart"></div>
-	<div id="categoryData" style="display:none;">${categoryData}</div>
+	<div id = "barchart" style="padding-left:420px;padding-top: 80px;"></div>
+	<div id="categoryData" style="display:none;">${channelData}</div>
 	<div id="queryType" style="display:none;">${queryType}</div>
 </body>
 <script>
@@ -36,20 +28,7 @@ function goHome(){
 	window.location.href= path.substr(0,path.indexOf('/query'));
 
 }
-function toggleGraphs(id){
-	//alert(id);
-	if(id.value=="countries"){
-		var data = new google.visualization.DataTable();
-		data.addColumn('string','Videos');
-		data.addColumn('number','Views');
-		createChart(data,1);
-	}else if(id.value=="WorldWide"){
-		var data = new google.visualization.DataTable();
-		data.addColumn('string','Videos');
-		data.addColumn('number','Views');
-		createChart(data,0);
-	}
-}
+
 function drawChart(){
 	var data = new google.visualization.DataTable();
 	data.addColumn('string','Videos');
@@ -67,13 +46,13 @@ function createChart(data,id){
 			jsonData = jsonData.primaryList;
 		}
 	for (var i = 0; i < jsonData.length; i++) {
-		var category = jsonData[i].Categories;
+		var category = jsonData[i].Channels;
 		category = category.toString();
 		category = category.replace(/\&amp;/g,'and');
 		data.addRow([category, parseInt(jsonData[i].Videos,10)]);
     }
 	//var pieTitle = {'title':'Videos-Views', 'width':550, 'height':400};
-	  var columnTitle = {'title':'Most Viewed Categories', 'width':550, 'height':400, colors:['blue','black']};
+	  var columnTitle = {'title':'Most Viewed Channels', 'width':550, 'height':400, colors:['blue','black']};
 		var columnChart = new google.visualization.ColumnChart(document.getElementById('barchart'));
 		columnChart.draw(data, columnTitle);
 }

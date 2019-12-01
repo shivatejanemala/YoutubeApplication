@@ -109,7 +109,8 @@ public class YoutubeController {
         System.out.println("query4 JSON: "+jObject);
 	    if ((!cR1.isEmpty()) && (!cR2.isEmpty())) {
 	    	System.out.println("data found");
-	    	mav = new ModelAndView("welcome");
+	    	mav = new ModelAndView("welcome4");
+	    	 mav.addObject("message", "Youtube Trending Analysis");
 	      mav.addObject("categoryData", jObject);
 	    } else {
 	    	System.out.println("data not found");
@@ -140,8 +141,9 @@ public class YoutubeController {
         jObject.put("primaryList", jArray);
         System.out.println("query3 JSON: "+jObject);
 	    if (!channelRes.isEmpty()) {
-	    	mav = new ModelAndView("welcome");
+	    	mav = new ModelAndView("welcome3");
 	      mav.addObject("channelData", jObject);
+	      mav.addObject("message", "Youtube Trending Analysis");
 	    } else {
 	      mav = new ModelAndView("login");
 	      mav.addObject("message", "Data doesn't exist!!");
@@ -171,7 +173,8 @@ public class YoutubeController {
 	        jObject.put("primaryList", jArray);
 	        System.out.println("query5 JSON: "+jObject);
 		    if (!catList.isEmpty()) {
-		    	mav = new ModelAndView("welcome1");
+		    	mav = new ModelAndView("welcome5");
+		    	 mav.addObject("message", "Youtube Trending Analysis");
 		      mav.addObject("CategoryVideoList", jObject);
 		    } else {
 		      mav = new ModelAndView("login");
@@ -257,7 +260,8 @@ public class YoutubeController {
         jObject.put("primaryList", jArray);
         System.out.println("query1 JSON: "+jObject);
 	    if (!query1Res.isEmpty()) {
-	    	mav = new ModelAndView("login");
+	    	mav = new ModelAndView("welcome1");
+	    	 mav.addObject("message","Youtube Trending Analysis");
 	      mav.addObject("query1Data", jObject);
 	    } else {
 	      mav = new ModelAndView("login");

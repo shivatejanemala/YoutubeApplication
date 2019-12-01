@@ -8,7 +8,7 @@
 <title>Login</title>
 </head>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<body>
+<body style="background-color:#F5F5DB">
 
 		<table align="center">
 		<tr>
