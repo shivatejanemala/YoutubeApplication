@@ -14,7 +14,7 @@
   text-align: center;
   text-decoration: none;
   outline: none;
-  color: #fff;
+  color: teal;
   background-color: #4CAF50;
   border: none;
   border-radius: 15px;
@@ -37,9 +37,11 @@ margin-left:550px;
 position:relative;
 z-index:100;
 color:white;
-line-height: 50px;
 overflow: hidden;
 z-index: 2;
+font-family: Verdana,sans-serif;
+font-size: 20px;
+    line-height: 1.5;
 }
 
 .countryButton{
@@ -61,15 +63,15 @@ box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 <body>
 
 <h1 class="welcome">Welcome to UTrends</h1>
-<div style="margin-left:550px;margin-bottom:40px;color:white"> Please select the countries for Analysis</div>
+<div style="margin-left:550px;margin-bottom:40px;color:white;font-family: &quot;Segoe UI&quot;,Arial,sans-serif;"> A TREND ANALYSIS WEBSITE</div>
 
  <div id = "countryBox" style="margin-bottom:50px">
- <table style = "display:inline-block;border: 1px solid red;width:200px;height:240px;background-color:#d5e1df">
+ <table style = "float:left;border: 1px solid red;width:200px;height:340px;background-color:#d5e1df">
  	<tr>
- 		<td>About</td>
+ 		<td>About:</td>
  	</tr>
  	<tr>
- 		<td>This is a youtube Trending application Which can be used to identify the patterns in the data of trending videos for about 5 countries across 12 months</td>
+ 		<td>Youtube video data across 5 countries over a period of 205 days is taken and trends have been identified. This site aims to provide an understanding to people or channels to increase popularity of their videos or channels and to identify the contribution and pattern by statistically analyzing different demographic factors like region, time of upload, trends, category of the video etc., </td>
  	</tr>
  	
  </table>
@@ -89,6 +91,7 @@ box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
  </table>
  
  </div>
+ <div style="margin-left:550px;margin-bottom:40px;color:white;font-family: &quot;Segoe UI&quot;,Arial,sans-serif;font-size: 20px;">Please Select More Than One Country</div>
  <div id = "countryList" style = "display:none;" ></div>
 <!-- <div id = "CountryReg" style = "margin-left:750px;width:95px; height: 30px; border: 1px solid blue;text-align:center;background-color: white;" onclick= "setCountryList()">Enter</div>
  -->
