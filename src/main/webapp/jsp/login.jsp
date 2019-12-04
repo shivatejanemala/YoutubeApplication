@@ -77,7 +77,7 @@ box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 	</tr>
 	<tr>
 			<td><button onmouseover="contentDisplay(3)" onmouseout="hideContent()" onclick="getGraphs(3)" class="countryButton">Most Viewed Channels</button></td>
-			<td><button onmouseover="contentDisplay(4)" onmouseout="hideContent()" onclick="getGraphs(4)" class="countryButton">Most Viewed Channel</button></td>
+			<td><button onmouseover="contentDisplay(4)" onmouseout="hideContent()" onclick="getGraphs(4)" class="countryButton">Most Viewed Category</button></td>
 	</tr>
 	<tr>
 			<td><button onmouseover="contentDisplay(5)" onmouseout="hideContent()" onclick="getGraphs(5)" class="countryButton">Most Popular video based on category</button></td>

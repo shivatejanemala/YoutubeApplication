@@ -42,15 +42,16 @@ z-index: 2;
 }
 
 .countryButton{
-width: 295px;
-height: 70px;
+width: 595px;
+height: 50px;
 border: 1px solid blue;
 font-family: Georgia, serif;
-font-size: x-large;
+font-size: large;
 text-align: center;
-background-color:#d5e1df;
+background-color:teal;
+color:white;
 }
-
+ 
 .countryButtonHover:hover{
 box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
@@ -67,7 +68,7 @@ box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 		</tr>
    </table>
 	
-		<div id = "piechart"></div>
+	<div style="color:white;padding-top:35px;font-size:x-large;" align="center"> Please select the video for analysis</div>
 	<table id = "videosTable"  align="center" style="padding-top:80px">
 	
 	</table>
@@ -93,7 +94,7 @@ function createChart(){
 		var row = table.insertRow(i);
 		var cell = row.insertCell(0);
 		cell.innerHTML = VideoTitle;
-		cell.style.border = "1px solid black";
+		cell.classList.add("countryButton");
 		cell.onclick = function(){
 			getVideoInfo(this);
 		} 

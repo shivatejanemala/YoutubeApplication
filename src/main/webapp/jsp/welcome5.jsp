@@ -71,8 +71,8 @@ box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 	<td style="padding-right: 250px">
 		<table id = "categoryTable" style="display:inline-block;border-collapse: collapse; width:200px;height:440px;">
  			<tbody>
- 				<tr style="border: 1px solid yellow">
- 					<td>Categories</td>
+ 				<tr style="border: 1px solid red">
+ 					<td style="color:teal;background-color:#d5e1df" >Categories</td>
  				</tr>
  			</tbody>
 	 	 </table>
@@ -162,9 +162,9 @@ function createChart(id){
 	for (var j = 0 ; j < categoryList.length ; j++){
 		var table = document.getElementById("categoryTable");
 		var row = table.insertRow(j+1);
-		row.style.border= "1px solid yellow";
+		row.style.border= "1px solid red";
 		var cell = row.insertCell(0);
-		cell.innerHTML = '<div style="color:#e6e2d3" onclick="showTable('+ j+ ')" >'+ categoryList[j]+'</div>';
+		cell.innerHTML = '<div style="color:teal;background-color:#d5e1df" onclick="showTable('+ j+ ')" >'+ categoryList[j]+'</div>';
 	}
 	showTable(0);
 		/* var headTable = document.getElementById("headTable");
