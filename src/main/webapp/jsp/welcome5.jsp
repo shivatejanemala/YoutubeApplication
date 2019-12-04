@@ -5,25 +5,73 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome</title>
+<style>
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+body{
+background-image: url(analysis.jpg);
+background-color:#F5F5DB;
+}
+
+.welcome{
+position:relative;
+z-index:100;
+color:white;
+line-height: 50px;
+overflow: hidden;
+z-index: 2;
+}
+
+.countryButton{
+width: 295px;
+height: 70px;
+border: 1px solid blue;
+font-family: Georgia, serif;
+font-size: x-large;
+text-align: center;
+background-color:#d5e1df;
+}
+
+.countryButtonHover:hover{
+box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
 </head>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <body style="background-color:#F5F5DB">
-	<table style="position:relative;">
+	<table class="welcome">
 		<tr>
-			<td style="padding-left:550px;padding-right:500px;">
-				<strong style="font-size:20px;">${message}</strong>
-			</td>
+			<td style="padding-right:500px;padding-left:400px">${message}</td>
 			<td><div onclick="goHome()">Home</div></td>
 		</tr>
-	</table>
+   </table>
 	
 	<div id = "piechart"></div>
-	<table id = "headTable">
+	<table id = "headTable" style="padding-top:30px">
 	<tr>
 	<td style="padding-right: 250px">
 		<table id = "categoryTable" style="display:inline-block;border-collapse: collapse; width:200px;height:440px;">
  			<tbody>
- 				<tr style="border: 1px solid red">
+ 				<tr style="border: 1px solid yellow">
  					<td>Categories</td>
  				</tr>
  			</tbody>
@@ -114,9 +162,9 @@ function createChart(id){
 	for (var j = 0 ; j < categoryList.length ; j++){
 		var table = document.getElementById("categoryTable");
 		var row = table.insertRow(j+1);
-		row.style.border= "1px solid red";
+		row.style.border= "1px solid yellow";
 		var cell = row.insertCell(0);
-		cell.innerHTML = '<div onclick="showTable('+ j+ ')" >'+ categoryList[j]+'</div>';
+		cell.innerHTML = '<div style="color:#e6e2d3" onclick="showTable('+ j+ ')" >'+ categoryList[j]+'</div>';
 	}
 	showTable(0);
 		/* var headTable = document.getElementById("headTable");
