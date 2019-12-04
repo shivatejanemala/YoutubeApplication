@@ -297,13 +297,13 @@ public class YoutubeController {
         for(String key: keySet){
         	JSONObject query7JSON = new JSONObject();
         	query7JSON.put("CountryName",key);
-        	query7JSON.put("No.of Controversial Videos",query7Res.get(key));
+        	query7JSON.put("controversyVideoCount",query7Res.get(key));
         	jArray.put(query7JSON);
         }
         jObject.put("primaryList", jArray);
         System.out.println("query7 JSON: "+jObject);
 	    if (!query7Res.isEmpty()) {
-	    	mav = new ModelAndView("login");
+	    	mav = new ModelAndView("welcome7");
 	      mav.addObject("query7Data", jObject);
 	    } else {
 	      mav = new ModelAndView("login");
