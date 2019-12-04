@@ -311,4 +311,81 @@ public class YoutubeController {
 	    }
 	    return mav;
 	  }
+	  
+	  @RequestMapping(value = "/query6", method = RequestMethod.GET)
+	  public ModelAndView query6(HttpServletRequest request, HttpServletResponse response) throws SQLException, JSONException {
+	    ModelAndView mav = null;
+	    System.out.println("Into Query 6 logic");
+	    JSONObject jObject = new JSONObject();
+	    HashMap<String,String> query6Res1 = videoService.dataQuery6part1();
+	    HashMap<String,String> query6Res2 = videoService.dataQuery6part2();
+        Set<String> keySet1 = query6Res1.keySet();
+        Set<String> keySet2 = query6Res2.keySet();
+        JSONArray jArray = new JSONArray();
+        for(String key: keySet1){
+        	JSONObject query6JSON1 = new JSONObject();
+        	query6JSON1.put("CountryName",key);
+        	query6JSON1.put("No.of Controversial Videos",query6Res1.get(key));
+        	jArray.put(query6JSON1);
+        }
+        JSONArray jArray1 = new JSONArray();
+        for(String key: keySet2){
+        	JSONObject query6JSON2 = new JSONObject();
+        	query6JSON2.put("CountryName",key);
+        	query6JSON2.put("No.of Controversial Videos",query6Res1.get(key));
+        	jArray1.put(query6JSON2);
+        }
+        jObject.put("primaryList", jArray);
+        jObject.put("secondList", jArray1);
+        System.out.println("query6 JSON: "+jObject);
+        if ((!query6Res1.isEmpty()) && (!query6Res2.isEmpty())) {
+	    	mav = new ModelAndView("login");
+	      mav.addObject("query6Data", jObject);
+	    } else {
+	      mav = new ModelAndView("login");
+	      mav.addObject("message", "Data doesn't exist!!");
+	    }
+	    return mav;
+	  }
+	  
+	  @RequestMapping(value = "/query8", method = RequestMethod.GET)
+	  public ModelAndView query8(HttpServletRequest request, HttpServletResponse response) throws SQLException, JSONException {
+	    ModelAndView mav = null;
+	    System.out.println("Into Query 8 logic");
+	  //  System.out.println("countryList:"+cntryList);
+	  //  List<String> items = Arrays.asList(cntryList.split("\\s*,\\s*"));
+	    String cn= ",1,3";
+	   // List<String> items = Arrays.asList(cn.split("\\s*,\\s*"));
+	    JSONObject jObject = new JSONObject();
+	    HashMap<String,String> query8Res = videoService.dataQuery8(cn);
+	    HashMap<String,String> query8Part2Res = videoService.dataQuery8Part2(cn);
+        Set<String> keySet = query8Res.keySet();
+        JSONArray jArray = new JSONArray();
+        for(String key: keySet){
+        	JSONObject query8JSON = new JSONObject();
+        	query8JSON.put("Category Name",key);
+        	query8JSON.put("View-Comment Ratio",query8Res.get(key));
+        	jArray.put(query8JSON);
+        }
+        Set<String> keySet1 = query8Part2Res.keySet();
+        JSONArray jArray1 = new JSONArray();
+        for(String key: keySet1){
+        	JSONObject query8JSON = new JSONObject();
+        	query8JSON.put("Category Name",key);
+        	query8JSON.put("Dislike-View ratio",query8Part2Res.get(key));
+        	jArray1.put(query8JSON);
+        }
+        jObject.put("primaryList", jArray);
+        jObject.put("secondaryList", jArray1);
+        System.out.println("query8 JSON: "+jObject);
+	    if (!query8Res.isEmpty()) {
+	    	mav = new ModelAndView("welcome2");
+	    	mav.addObject("message","Youtube Trending Analysis");
+	      mav.addObject("query8Data", jObject);
+	    } else {
+	      mav = new ModelAndView("login");
+	      mav.addObject("message", "Data doesn't exist!!");
+	    }
+	    return mav;
+	  }
 }
