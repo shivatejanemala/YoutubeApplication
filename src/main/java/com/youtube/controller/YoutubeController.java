@@ -4,9 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -297,13 +295,13 @@ public class YoutubeController {
         for(String key: keySet){
         	JSONObject query7JSON = new JSONObject();
         	query7JSON.put("CountryName",key);
-        	query7JSON.put("controversyVideoCount",query7Res.get(key));
+        	query7JSON.put("No.of Controversial Videos",query7Res.get(key));
         	jArray.put(query7JSON);
         }
         jObject.put("primaryList", jArray);
         System.out.println("query7 JSON: "+jObject);
 	    if (!query7Res.isEmpty()) {
-	    	mav = new ModelAndView("welcome7");
+	    	mav = new ModelAndView("login");
 	      mav.addObject("query7Data", jObject);
 	    } else {
 	      mav = new ModelAndView("login");
@@ -324,22 +322,23 @@ public class YoutubeController {
         JSONArray jArray = new JSONArray();
         for(String key: keySet1){
         	JSONObject query6JSON1 = new JSONObject();
-        	query6JSON1.put("CountryName",key);
-        	query6JSON1.put("No.of Controversial Videos",query6Res1.get(key));
+        	query6JSON1.put("CategoryName",key);
+        	query6JSON1.put("ldRratio",query6Res1.get(key));
         	jArray.put(query6JSON1);
         }
         JSONArray jArray1 = new JSONArray();
         for(String key: keySet2){
         	JSONObject query6JSON2 = new JSONObject();
-        	query6JSON2.put("CountryName",key);
-        	query6JSON2.put("No.of Controversial Videos",query6Res1.get(key));
+        	query6JSON2.put("CategoryName",key);
+        	query6JSON2.put("ldRratio",query6Res1.get(key));
         	jArray1.put(query6JSON2);
         }
         jObject.put("primaryList", jArray);
         jObject.put("secondList", jArray1);
         System.out.println("query6 JSON: "+jObject);
         if ((!query6Res1.isEmpty()) && (!query6Res2.isEmpty())) {
-	    	mav = new ModelAndView("login");
+	    	mav = new ModelAndView("welcome6");
+	    	mav.addObject("message","Youtube Trending Analysis");
 	      mav.addObject("query6Data", jObject);
 	    } else {
 	      mav = new ModelAndView("login");
@@ -363,23 +362,23 @@ public class YoutubeController {
         JSONArray jArray = new JSONArray();
         for(String key: keySet){
         	JSONObject query8JSON = new JSONObject();
-        	query8JSON.put("Category Name",key);
-        	query8JSON.put("View-Comment Ratio",query8Res.get(key));
+        	query8JSON.put("CategoryName",key);
+        	query8JSON.put("vcRatio",query8Res.get(key));
         	jArray.put(query8JSON);
         }
         Set<String> keySet1 = query8Part2Res.keySet();
         JSONArray jArray1 = new JSONArray();
         for(String key: keySet1){
         	JSONObject query8JSON = new JSONObject();
-        	query8JSON.put("Category Name",key);
-        	query8JSON.put("Dislike-View ratio",query8Part2Res.get(key));
+        	query8JSON.put("CategoryName",key);
+        	query8JSON.put("vcRatio",query8Part2Res.get(key));
         	jArray1.put(query8JSON);
         }
         jObject.put("primaryList", jArray);
-        jObject.put("secondaryList", jArray1);
+        jObject.put("secondList", jArray1);
         System.out.println("query8 JSON: "+jObject);
 	    if (!query8Res.isEmpty()) {
-	    	mav = new ModelAndView("welcome2");
+	    	mav = new ModelAndView("welcome8");
 	    	mav.addObject("message","Youtube Trending Analysis");
 	      mav.addObject("query8Data", jObject);
 	    } else {
